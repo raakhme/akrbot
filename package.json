@@ -6,6 +6,7 @@
     "start": "nx serve",
     "build": "nx build",
     "test": "nx test",
+    "run-many": "nx run-many --parallel",
     "g:tslib": "nx g lib",
     "g:nodeapp": "nx g @nrwl/node:application"
   },

@@ -5,6 +5,7 @@
     "ads": "libs/ads",
     "appartments-bot": "apps/appartments-bot",
     "bot": "libs/bot",
+    "commercial-bot": "apps/commercial-bot",
     "crons": "libs/crons",
     "dashboard": "apps/dashboard",
     "dashboard-e2e": "apps/dashboard-e2e",
