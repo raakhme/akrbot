@@ -1,0 +1,14 @@
+{
+  "$schema": "./node_modules/nx/schemas/workspace-schema.json",
+  "version": 2,
+  "projects": {
+    "ads": "libs/ads",
+    "appartments-bot": "apps/appartments-bot",
+    "bot": "libs/bot",
+    "crons": "libs/crons",
+    "dashboard": "apps/dashboard",
+    "dashboard-e2e": "apps/dashboard-e2e",
+    "envi": "libs/envi",
+    "types": "libs/types"
+  }
+}
