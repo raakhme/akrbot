@@ -4,6 +4,7 @@
   "projects": {
     "ads": "libs/ads",
     "api": "libs/api",
+    "appartments-bot-chb": "apps/appartments-bot-chb",
     "appartments-bot-ekb": "apps/appartments-bot-ekb",
     "appartments-bot-krasnodar": "apps/appartments-bot-krasnodar",
     "appartments-bot-kzn": "apps/appartments-bot-kzn",

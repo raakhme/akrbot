@@ -12,7 +12,7 @@ async function run() {
 
   await crons.start();
 
-  console.log('Ekaterinburg Appartments bot is started');
+  console.log('Chelyabinsk Appartments bot is started');
 
   bot.start((ctx) => {
     const chatId = ctx.chat.id;
