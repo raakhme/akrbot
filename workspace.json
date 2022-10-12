@@ -3,13 +3,19 @@
   "version": 2,
   "projects": {
     "ads": "libs/ads",
-    "appartments-bot": "apps/appartments-bot",
+    "api": "libs/api",
+    "appartments-bot-ekb": "apps/appartments-bot-ekb",
+    "appartments-bot-krasnodar": "apps/appartments-bot-krasnodar",
+    "appartments-bot-kzn": "apps/appartments-bot-kzn",
     "bot": "libs/bot",
     "commercial-bot": "apps/commercial-bot",
     "crons": "libs/crons",
     "dashboard": "apps/dashboard",
     "dashboard-e2e": "apps/dashboard-e2e",
-    "envi": "libs/envi",
+    "lands-kzn-bot": "apps/lands-kzn-bot",
+    "scraper": "libs/scraper",
+    "server": "apps/server",
+    "swaggen": "libs/swaggen",
     "types": "libs/types"
   }
 }

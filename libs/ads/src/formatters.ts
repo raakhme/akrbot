@@ -1,4 +1,5 @@
-export function withDots(value: string, maxLength: number) {
+export function withDots(value: string | undefined, maxLength: number) {
+  if (!value) return '';
   if (value.length <= maxLength) {
     return value;
   }

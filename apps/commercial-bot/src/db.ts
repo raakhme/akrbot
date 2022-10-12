@@ -1,3 +1,4 @@
+import path from 'path';
 import StormDB from 'stormdb';
 
 export interface DBState {
@@ -11,7 +12,7 @@ const defaultDBState: DBState = {
 };
 
 export const initDB = () => {
-  const adapter = new StormDB.localFileEngine('./db.stormdb');
+  const adapter = new StormDB.localFileEngine('db-commerce.stormdb');
   const db = new StormDB(adapter);
 
   db.default(defaultDBState);

@@ -1,0 +1,57 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/lands-kzn-bot/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/lands-kzn-bot",
+        "main": "apps/lands-kzn-bot/src/main.ts",
+        "tsConfig": "apps/lands-kzn-bot/tsconfig.app.json",
+        "assets": ["apps/lands-kzn-bot/src/assets"]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/lands-kzn-bot/src/environments/environment.ts",
+              "with": "apps/lands-kzn-bot/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:node",
+      "options": {
+        "buildTarget": "lands-kzn-bot:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "lands-kzn-bot:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/lands-kzn-bot/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/lands-kzn-bot"],
+      "options": {
+        "jestConfig": "apps/lands-kzn-bot/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

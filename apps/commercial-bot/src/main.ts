@@ -1,5 +1,6 @@
 import { bot } from './bot';
 import crons from './crons';
+import {} from '@akrbot/scraper';
 
 async function run() {
   await bot.launch();

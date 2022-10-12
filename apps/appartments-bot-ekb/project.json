@@ -1,0 +1,57 @@
+{
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/appartments-bot-ekb/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nrwl/node:webpack",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/apps/appartments-bot-ekb",
+        "main": "apps/appartments-bot-ekb/src/main.ts",
+        "tsConfig": "apps/appartments-bot-ekb/tsconfig.app.json",
+        "assets": ["apps/appartments-bot-ekb/src/assets"]
+      },
+      "configurations": {
+        "production": {
+          "optimization": true,
+          "extractLicenses": true,
+          "inspect": false,
+          "fileReplacements": [
+            {
+              "replace": "apps/appartments-bot-ekb/src/environments/environment.ts",
+              "with": "apps/appartments-bot-ekb/src/environments/environment.prod.ts"
+            }
+          ]
+        }
+      }
+    },
+    "serve": {
+      "executor": "@nrwl/node:node",
+      "options": {
+        "buildTarget": "appartments-bot-ekb:build"
+      },
+      "configurations": {
+        "production": {
+          "buildTarget": "appartments-bot-ekb:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nrwl/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/appartments-bot-ekb/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nrwl/jest:jest",
+      "outputs": ["coverage/apps/appartments-bot-ekb"],
+      "options": {
+        "jestConfig": "apps/appartments-bot-ekb/jest.config.ts",
+        "passWithNoTests": true
+      }
+    }
+  },
+  "tags": []
+}

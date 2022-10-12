@@ -1,17 +1,21 @@
+import StormDB from 'stormdb';
 import { Telegraf } from 'telegraf';
 
-import { BotContext as Context } from './types';
+import { AdBot, BotContext as Context } from './types';
 
-type BotSignal = (bot: Telegraf<Context>) => void;
+type BotSignal = (bot: AdBot) => void;
 
-export interface CreateBotOptions {
+export interface CreateBotOptions<DBState> {
   token: string;
   env?: 'development' | 'production';
   signals?: Partial<Record<NodeJS.Signals, BotSignal>>;
+  db?: {
+    defaultState: DBState;
+  };
 }
 
-export function createBot<BotContext extends Context>(
-  options: CreateBotOptions
+export function createBot<BotContext extends Context, DBState>(
+  options: CreateBotOptions<DBState>
 ) {
   const { token, env, signals } = options;
 
