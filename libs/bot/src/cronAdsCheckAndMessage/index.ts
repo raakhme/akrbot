@@ -30,12 +30,14 @@ export function cronAdsCheckAndMessage(
     const ads = await orc.getAllAds();
     await Promise.all(
       ads.map(async (adInfo) => {
-        await sendAdMessage({
-          adInfo,
-          bot,
-          db,
-          messageParams: messageParams(adInfo),
-        });
+        if (adInfo.status === 'fulfilled') {
+          await sendAdMessage({
+            adInfo: adInfo.value,
+            bot,
+            db,
+            messageParams: messageParams(adInfo.value),
+          });
+        }
       })
     );
   });
