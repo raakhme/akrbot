@@ -18,7 +18,7 @@ export async function compute(
   });
 
   try {
-    const results = await Promise.all(
+    const results = await Promise.allSettled(
       adapts.map(async (adapterName) => {
         const adapter = adapters[adapterName];
         try {
