@@ -1,4 +1,6 @@
 import puppeteer from 'puppeteer';
+import * as path from 'path';
+
 import { avitoAdapter, cianAdapter } from '../adapters';
 import { ScraperAdapter } from '../adapters/adapter';
 import { ScraperFilters } from '../types';
@@ -40,7 +42,9 @@ export async function compute(
               timeout: 60000,
             });
           }
-          await page.screenshot({ path: `dist/${adapter.source}.png` });
+          await page.screenshot({
+            path: path.resolve(process.cwd(), `dist/${adapter.source}.png`),
+          });
           await page.exposeFunction('normalizeUrl', (...args: string[]) =>
             utils.normalizeUrl(...args)
           );
