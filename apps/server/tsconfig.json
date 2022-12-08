@@ -2,6 +2,23 @@
   "extends": "../../tsconfig.base.json",
   "files": [],
   "include": [],
+  "compilerOptions": {
+    "typeRoots": ["./src/typings"],
+    "baseUrl": ".",
+    "paths": {
+      "@akrbot/ads": ["../../libs/ads/src/index.ts"],
+      "@akrbot/api": ["../../libs/api/src/index.ts"],
+      "@akrbot/bot": ["../../libs/bot/src/index.ts"],
+      "@akrbot/crons": ["../../libs/crons/src/index.ts"],
+      "@akrbot/envi": ["../../libs/envi/src/index.ts"],
+      "@akrbot/openapi": ["../../libs/openapi/src/index.ts"],
+      "@akrbot/scraper": ["../../libs/scraper/src/index.ts"],
+      "@akrbot/swaggen": ["../../libs/swaggen/src/index.ts"],
+      "@akrbot/types": ["../../libs/types/src/index.ts"],
+      "@akrbot/wait": ["../../libs/wait/src/index.ts"],
+      "@/*": ["src/*"]
+    }
+  },
   "references": [
     {
       "path": "./tsconfig.app.json"

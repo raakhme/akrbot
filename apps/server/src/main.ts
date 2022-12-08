@@ -6,39 +6,38 @@
 import { Logger } from '@nestjs/common';
 import { NestFactory } from '@nestjs/core';
 import { DocumentBuilder, SwaggerModule } from '@nestjs/swagger';
-
+import { generatePaths } from '@akrbot/openapi';
 import { AppModule } from './app/app.module';
-import { generatePaths } from './app/generatePaths';
-import { config } from './config';
+
+import envConfig from './config/env';
 
 async function bootstrap() {
+  const globalPrefix = envConfig.app.root;
   const app = await NestFactory.create(AppModule);
-  const globalPrefix = 'api';
-  const docsPrefix = 'docs';
-  app.enableCors();
   app.setGlobalPrefix(globalPrefix);
-  const port = process.env.PORT || 3333;
+  app.enableCors();
 
-  const swaggerConfig = new DocumentBuilder()
-    .setTitle(config.swagger.title)
-    .setDescription(config.swagger.description)
-    .setVersion(config.swagger.version)
-    .addTag('config')
+  const config = new DocumentBuilder()
+    .setTitle('VR API')
+    .setDescription('Vocal Roads application API docs')
+    .setVersion(envConfig.swagger.version)
     .build();
 
-  const swaggerDocument = SwaggerModule.createDocument(app, swaggerConfig);
-  SwaggerModule.setup(docsPrefix, app, swaggerDocument);
-
-  await app.listen(port);
-
-  const swaggerAddress = `http://localhost:${port}/${docsPrefix}`;
-
-  await generatePaths({ swaggerAddress: swaggerAddress + '-json' });
+  const document = SwaggerModule.createDocument(app, config);
+  SwaggerModule.setup(envConfig.swagger.root, app, document);
+  const port = envConfig.app.port;
+  await app.listen(port).then(async () => {
+    Logger.log('Generate swagger types...');
+    console.log(envConfig.swagger.url);
+    await generatePaths({
+      swaggerAddress: envConfig.swagger.urlJson,
+    });
+    Logger.log('Open API typescript definitions successfully generated!');
+  });
 
   Logger.log(
     `🚀 Application is running on: http://localhost:${port}/${globalPrefix}`
   );
-  Logger.log(`📖 Application docs is running on: ${swaggerAddress}`);
 }
 
 bootstrap();

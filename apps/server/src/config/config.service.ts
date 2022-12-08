@@ -1,57 +1,41 @@
-import { Injectable } from '@nestjs/common';
-import { InjectRepository } from '@nestjs/typeorm';
-import { Repository } from 'typeorm';
-import { BotConfig } from './entity/botConfig.entity';
-import { Config } from './entity/config.entity';
-import { CreateBotConfigDto, UpdateBotConfigDto } from './dto/botConfig.dto';
-import { InitConfigDto, ServerConfigDto } from './dto/serverConfig.dto';
+import { TypeOrmModuleOptions } from '@nestjs/typeorm';
+import envConfig from './env';
 
-@Injectable()
-export class ConfigService {
-  constructor(
-    @InjectRepository(Config)
-    private configRepository: Repository<Config>,
-    @InjectRepository(BotConfig)
-    private botConfigRepository: Repository<BotConfig>
-  ) {}
+class ConfigService {
+  constructor(private readonly env: typeof envConfig) {}
 
-  async getConfig(): Promise<ServerConfigDto | null> {
-    const result = await this.configRepository.findOne({
-      relations: { bots: true },
-    });
-    if (result?.id) {
-      return {
-        name: result.name,
-        bots: result.bots,
-        id: result.id,
-      };
-    }
-    return null;
+  public getDbPort() {
+    return this.env.postgres.port;
   }
 
-  async initConfig(initConfig: InitConfigDto): Promise<ServerConfigDto['id']> {
-    const config = this.configRepository.create();
-    config.name = initConfig.name;
-    const botsConfigs = this.botConfigRepository.create(initConfig.bots);
-    config.bots = botsConfigs;
-
-    await this.configRepository.save(config);
-
-    return config.id;
+  public isProduction() {
+    return !envConfig.flags.isDev;
   }
 
-  async addBot(addBot: CreateBotConfigDto) {
-    const bot = this.botConfigRepository.create();
-    bot.name = addBot.name;
-    bot.token = addBot.token;
-    return await this.botConfigRepository.save(bot);
-  }
+  public getTypeOrmConfig(): TypeOrmModuleOptions {
+    return {
+      type: 'postgres',
 
-  async updateBot(updateBot: UpdateBotConfigDto) {
-    const bot = await this.botConfigRepository.findOneBy({ id: updateBot.id });
-    bot.name = updateBot.name;
-    bot.token = updateBot.token;
+      host: this.env.postgres.host,
+      port: this.env.postgres.port,
+      username: this.env.postgres.user,
+      password: this.env.postgres.password,
+      database: this.env.postgres.database,
 
-    return await this.botConfigRepository.save(bot);
+      entities: ['src/**/*.entity.{ts,js}'],
+
+      migrationsTableName: 'migration',
+
+      synchronize: !this.isProduction(),
+
+      migrations: ['src/migration/*.ts'],
+
+      autoLoadEntities: true,
+
+      ssl: this.isProduction(),
+    };
   }
 }
+
+const configService = new ConfigService(envConfig);
+export { configService };

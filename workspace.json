@@ -14,9 +14,11 @@
     "dashboard": "apps/dashboard",
     "dashboard-e2e": "apps/dashboard-e2e",
     "lands-kzn-bot": "apps/lands-kzn-bot",
+    "openapi": "libs/openapi",
     "scraper": "libs/scraper",
     "server": "apps/server",
     "swaggen": "libs/swaggen",
-    "types": "libs/types"
+    "types": "libs/types",
+    "wait": "libs/wait"
   }
 }
