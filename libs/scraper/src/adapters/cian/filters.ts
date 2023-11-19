@@ -28,7 +28,7 @@ export const paramsMapper: ParamsMapper = {
     key: 'offer_type',
     value: {
       appartments: 'flat',
-      commerce: null,
+      commerce: 'offices',
       lands: null,
     },
   },

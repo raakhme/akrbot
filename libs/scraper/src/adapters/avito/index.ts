@@ -30,11 +30,11 @@ export class AvitoAdapter extends ScraperAdapter {
     );
     const description = item?.querySelector('div[class^=iva-item-description]');
     const url = item?.querySelector('a[itemprop=url]');
-    const price = item?.querySelector('span[class^=price-text]');
-    const pricePerM = item?.querySelector('span[class^=price-noaccent]');
-    const title = item?.querySelector('h3[class^=title-root]');
-    const address = item?.querySelector('span[class^=geo-address] span');
-    const date = item?.querySelector('div[data-marker=item-date]');
+    const price = item?.querySelector('div[class^=price-price]');
+    const pricePerM = price?.nextSibling;
+    const title = item?.querySelector('h3[itemprop=name]');
+    const address = item?.querySelector('div[data-marker=item-address]');
+    const date = item?.querySelector('p[data-marker=item-date]');
 
     const id = item?.getAttribute('id');
 
